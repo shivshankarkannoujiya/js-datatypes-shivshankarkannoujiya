@@ -28,5 +28,42 @@
  *   // => ""
  */
 export function formatChaiMenu(items) {
-  // Your code here
+  if (!Array.isArray(items)) return "";
+
+  return items
+    .filter(
+      (item) =>
+        item &&
+        typeof item.name === "string" &&
+        item.name.trim().length > 0 &&
+        typeof item.price === "number" &&
+        item.price > 0,
+    )
+    .map((item) => `${item.name.toUpperCase()} - Rs.${item.price}`)
+    .join(" | ");
 }
+
+/*
+
+NOTE: Thinking Process
+  const s = [
+    { name: "masala chai", price: 15 },
+    { name: "samosa", price: 12 },
+  ]
+  
+  MASALA CHAI - Rs.15 | SAMOSA - Rs.12
+  
+  s.map((o) => { name: "masala chai", price: 15 })
+  
+  const obj = { name: "masala chai", price: 15 }
+  
+  `${obj.name.toUpperCase()} - ${obj.price}`
+  
+  console.log(
+    s
+      .filter((o) => o.price > 0)
+      .map((item) => `${item.name.toUpperCase()} - Rs.${item.price}`)
+      .join(" | "),
+  );
+
+*/

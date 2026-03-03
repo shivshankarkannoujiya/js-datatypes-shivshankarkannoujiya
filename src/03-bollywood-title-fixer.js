@@ -30,5 +30,80 @@
  *   // => "Dil ka Kya Kare"
  */
 export function fixBollywoodTitle(title) {
-  // Your code here
+  if (typeof title !== "string") return "";
+  if (title.trim().length === 0) return "";
+
+  const smallWords = new Set([
+    "ka",
+    "ki",
+    "ke",
+    "se",
+    "aur",
+    "ya",
+    "the",
+    "of",
+    "in",
+    "a",
+    "an",
+  ]);
+
+  return title
+    .trim()
+    .split(/\s+/)
+    .map((word, index) => {
+      const lower = word.toLowerCase();
+
+      if (index === 0) {
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+      }
+
+      if (smallWords.has(lower)) {
+        return lower;
+      }
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
 }
+
+/*
+NOTE: THOUGHT PROCESS
+const title = "  DILWALE   DULHANIA   LE   JAYENGE  ";
+// console.log(title.trim().split(/\s+/));
+
+
+
+// without regex
+const smallWords = new Set([
+  "ka",
+  "ki",
+  "ke",
+  "se",
+  "aur",
+  "ya",
+  "the",
+  "of",
+  "in",
+  "a",
+  "an",
+]);
+
+console.log(
+  title
+    .trim()
+    .split(" ")
+    .filter((word) => word.trim() !== "")
+    .map((word, index) => {
+      const lower = word.toLowerCase()
+
+      if (index === 0) {
+        return lower.charAt(0).toUpperCase() + lower.slice(1)
+      }
+
+      if (smallWords.has(lower)) {
+        return lower
+      }
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+);
+
+*/

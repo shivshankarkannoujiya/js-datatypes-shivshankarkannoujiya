@@ -27,6 +27,19 @@
  *   maskAadhaar("9876")
  *   // => "INVALID"
  */
+
+const isAllDigits = (str) => {
+  return [...str].every(ch => ch >= "0" && ch <= "9")
+}
+
 export function maskAadhaar(aadhaarNumber) {
-  // Your code here
+
+  if (typeof (aadhaarNumber) !== "string") return "INVALID";
+  if (aadhaarNumber.length !== 12) return "INVALID";
+  if (!isAllDigits(aadhaarNumber)) return "INVALID";
+  
+  const lastFourdigits = aadhaarNumber.slice(-4);
+  const maked = "X".repeat(8);
+
+  return `${maked.slice(0,4)}-${maked.slice(4)}-${lastFourdigits}`
 }
